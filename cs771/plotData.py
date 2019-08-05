@@ -21,6 +21,14 @@ def getFigure( sizex = 7, sizey = 7 ):
     fig = plt.figure( figsize = (sizex, sizey) )
     return fig
 
+def plotCurve( responseGenerator, fig, mode = 'point', color = 'b', line = 'solid', xlimL = 0, xlimR = 10, nBins = 500 ):
+    X = np.linspace( xlimL, xlimR, nBins, endpoint = True )
+    y = np.zeros( X.shape )
+    for i in range( X.size ):
+        y[i] = responseGenerator( X[i] )
+    plt.figure( fig.number )
+    plt.plot( X, y, color = color, linestyle = line )
+
 def plot2D( X, fig, color = 'r', marker = '+', size = 100 ):
     plt.figure( fig.number )
     plt.scatter( X[:,0], X[:,1], s = size, c = color, marker = marker )

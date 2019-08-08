@@ -31,7 +31,7 @@ def genSphericalData( d, n, mu, r ):
     return X
 
 # Return n data points (as an n x d array) sampled from the surface of ellipse of covariance cov centered at mu
-def genEllipticallData( d, n, mu, cov ):
+def genEllipticalData( d, n, mu, cov ):
     X = genSphericalData( d, n, np.zeros((d,)), 1 )
     L = lin.cholesky( cov )
     X = np.matmul( X, L ) + mu

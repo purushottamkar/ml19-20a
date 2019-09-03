@@ -13,13 +13,19 @@ from matplotlib.colors import LinearSegmentedColormap as lsc
 import numpy as np
 
 # A light red and light green binary colormap
-colors = [ (1, 0.85, 0.85), (0.85, 1, 0.85) ]
+binaryColors = [ (1, 0.85, 0.85), (0.85, 1, 0.85) ]
 nBins = 2
-lrlg = lsc.from_list( 'lrlg', colors, nBins )
+lrlg = lsc.from_list( 'lrlg', binaryColors, nBins )
 
 # A light red and light green binary colormap with shades
+probColors = [ (1, 0.75, 0.75), (1, 1, 1), (0.75, 1, 0.75) ]
 nBinsShade = 200
-lrlgShade = lsc.from_list( 'lrlg', colors, nBinsShade )
+lrlgShade = lsc.from_list( 'lrlg', probColors, nBinsShade )
+
+# A more gradual transition with more room for white shades
+probColorsGradual = [ (1, 0.75, 0.75), (1, 1, 1), (1, 1, 1), (0.75, 1, 0.75) ]
+nBinsShade = 200
+lrlgShadeGradual = lsc.from_list( 'lrlg', probColorsGradual, nBinsShade )
 
 def getFigure( sizex = 7, sizey = 7 ):
     fig = plt.figure( figsize = (sizex, sizey) )
@@ -73,7 +79,7 @@ def shade2D( labelGenerator, fig, mode = "point", colorMap = lrlg, xlim = 10, yl
     plt.figure( fig.number )
     plt.pcolormesh( xi, yi, zi, cmap = colorMap )
 
-def shade2DProb( scoreGenerator, fig, mode = "point", colorMap = lrlgShade, xlim = 10, ylim = 10, nBins = 500 ):
+def shade2DProb( scoreGenerator, fig, mode = "point", colorMap = lrlgShadeGradual, xlim = 10, ylim = 10, nBins = 500 ):
     xi, yi = np.mgrid[ -xlim:xlim:nBins*1j, -ylim:ylim:nBins*1j ]
     zi = np.zeros( xi.shape )
     if mode == "point":

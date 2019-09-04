@@ -31,7 +31,7 @@ def getFigure( sizex = 7, sizey = 7 ):
     fig = plt.figure( figsize = (sizex, sizey) )
     return fig
 
-def plotCurve( responseGenerator, fig, mode = "point", color = 'b', line = "solid", xlimL = 0, xlimR = 10, nBins = 500, label = "" ):
+def plotCurve( responseGenerator, fig, mode = "point", color = 'b', linestyle = "-", xlimL = 0, xlimR = 10, nBins = 500, label = "" ):
     X = np.linspace( xlimL, xlimR, nBins, endpoint = True )
     if mode == "point":
 	    y = np.zeros( X.shape )
@@ -40,7 +40,7 @@ def plotCurve( responseGenerator, fig, mode = "point", color = 'b', line = "soli
     elif mode == "batch":
 	    y = responseGenerator( X )
     plt.figure( fig.number )
-    plt.plot( X, y, color = color, linestyle = line, label = label )
+    plt.plot( X, y, color = color, linestyle = linestyle, label = label )
     if label:
         plt.legend()
 
@@ -52,18 +52,25 @@ def plot2DPoint( X, fig, color = 'r', marker = '+', size = 100 ):
     plt.figure( fig.number )
     plt.scatter( X[0], X[1], s = size, c = color, marker = marker )
 	
-def plotLine( w, b, fig, color = 'k', linestyle = "solid", xlimL = -10, xlimR = 10, nBins = 500, label = "" ):
+def plotLine( w, b, fig, color = 'k', linestyle = "-", xlimL = -10, xlimR = 10, nBins = 500, label = "" ):
     plt.figure( fig.number )
     if np.abs( w[1] ) < 1e-6:
         y = np.linspace( xlimL, xlimR, nBins )
-        x = -b/w[0]
+        x = -b/w[0]*np.ones( y.shape )
     else:
         x = np.linspace( xlimL, xlimR, nBins )
         y = (-w[0] * x - b)/w[1]
     plt.plot( x, y, color = color, linestyle = linestyle, label = label )
     if label:
         plt.legend()
-
+		
+def plotVerticalLine( x, fig, color = 'k', linestyle = '-', yLimB = -10, yLimT = 10, nBins = 500, label = ""):
+    plt.figure( fig.number )
+    y = np.linspace( yLimB, yLimT, nBins )
+    plt.plot( x*np.ones( y.shape ), y, color = color, linestyle = linestyle, label = label )
+    if label:
+        plt.legend()
+	
 def shade2D( labelGenerator, fig, mode = "point", colorMap = lrlg, xlim = 10, ylim = 10, nBins = 500 ):
     xi, yi = np.mgrid[ -xlim:xlim:nBins*1j, -ylim:ylim:nBins*1j ]
     zi = np.zeros( xi.shape )

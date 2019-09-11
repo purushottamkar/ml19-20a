@@ -31,6 +31,23 @@ def getFigure( sizex = 7, sizey = 7 ):
     fig = plt.figure( figsize = (sizex, sizey) )
     return fig
 
+def getFigList( nrows = 1, ncols = 1, sizex = 3, sizey = 3 ):
+    fig, axs = plt.subplots( nrows = nrows, ncols = ncols, figsize = (sizex * ncols, sizey * nrows), squeeze = 0 )
+    axs = axs.reshape( -1 )
+    return (fig, axs)
+
+def showImagesNoAxes( axes, imageList, numRows, numCols, resize = False, imShape = [], cmap = plt.cm.gray_r, labelList = [] ):
+    for i in range( numRows * numCols ):
+        currAxis = axes[i]
+        im = imageList[i]
+        if resize:
+            im = im.reshape( imShape )
+        currAxis.imshow( im, cmap = cmap, interpolation = 'nearest' )
+        currAxis.tick_params( axis = 'x', which = "both", bottom = False, labelbottom = False )
+        currAxis.tick_params( axis = 'y', which = "both", left = False, labelleft = False )
+        if labelList:
+            currAxis.set_title( labelList[i] )
+
 def plotCurve( responseGenerator, fig, mode = "point", color = 'b', linestyle = "-", xlimL = 0, xlimR = 10, nBins = 500, label = "" ):
     X = np.linspace( xlimL, xlimR, nBins, endpoint = True )
     if mode == "point":

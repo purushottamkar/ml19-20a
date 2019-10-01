@@ -41,6 +41,7 @@ def showImagesNoAxes( axes, imageList, numRows, numCols, resize = False, imShape
         currAxis = axes[i]
         im = imageList[i]
         if resize:
+            # Reshaping an indexed element of an array does not modify the original data so we are safe 
             im = im.reshape( imShape )
         currAxis.imshow( im, cmap = cmap, interpolation = 'nearest' )
         currAxis.tick_params( axis = 'x', which = "both", bottom = False, labelbottom = False )

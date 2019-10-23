@@ -62,9 +62,18 @@ def plotCurve( responseGenerator, fig, mode = "point", color = 'b', linestyle = 
     if label:
         plt.legend()
 
-def plot2D( X, fig, color = 'r', marker = '+', size = 100 ):
+def plot2D( X, fig, color = 'r', marker = '+', size = 100, empty = False ):
     plt.figure( fig.number )
-    plt.scatter( X[:,0], X[:,1], s = size, c = color, marker = marker )
+    if empty:
+        plt.scatter( X[:,0], X[:,1], s = size, facecolors = 'none', edgecolors = color, marker = marker )
+    else:
+	    plt.scatter( X[:,0], X[:,1], s = size, c = color, marker = marker )
+
+def subplot2D( X, ax, color = 'r', marker = '+', size = 100, empty = False ):
+    if empty:
+        ax.scatter( X[:,0], X[:,1], s = size, facecolors = 'none', edgecolors = color, marker = marker )
+    else:
+	    ax.scatter( X[:,0], X[:,1], s = size, c = color, marker = marker )
 
 def plot2DPoint( X, fig, color = 'r', marker = '+', size = 100 ):
     plt.figure( fig.number )

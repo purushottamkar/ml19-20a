@@ -12,6 +12,16 @@ import numpy as np
 import numpy.linalg as lin
 import numpy.random as rnd
 
+# Return n data points (as an n x d array) shaped as a hemisphere
+def genMoonData( d, n, mu, r, flipped = False ):
+    X = np.vstack( (np.cos( np.linspace( 0, np.pi, n ) ), np.sin( np.linspace( 0, np.pi, n ) ) ) ).T
+    if flipped:
+	    X[:,1] = -np.abs( X[:,1] )
+    else:
+        X[:,1] = np.abs( X[:,1] )
+    X = (X * r) + mu
+    return X
+
 # Return n data points (as an n x d array) sampled from N(mu, sigma^2 . I)
 def genSphericalNormalData( d, n, mu, sigma ):
     X = rnd.normal( 0, sigma, (n, d) ) + mu

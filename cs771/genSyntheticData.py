@@ -13,6 +13,9 @@ import numpy.linalg as lin
 import numpy.random as rnd
 
 # Return n data points (as an n x d array) shaped as a hemisphere
+# The manner of generation used below is similar to the sklearn
+# method make_moons.However, the method below gives the additional
+# flexibility of flipping and translating the moons
 def genMoonData( d, n, mu, r, flipped = False ):
     X = np.vstack( (np.cos( np.linspace( 0, np.pi, n ) ), np.sin( np.linspace( 0, np.pi, n ) ) ) ).T
     if flipped:

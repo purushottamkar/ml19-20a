@@ -34,17 +34,18 @@ numBins = 50
 
 n1 = lambda xx, yy: sigmoid( w[0] * xx + w[1] * yy + 2 )
 n2 = lambda xx, yy: sigmoid( w[0] * xx + w[1] * yy - 2 )
-n3 = addFuncWeighted( n1, n2, 1, -1 )
+n3 = composeFunc( sigmoid, addFuncWeighted( n1, n2, 5, -5, -5 ) )
 
 n4 = lambda xx, yy: sigmoid( wp[0] * xx + wp[1] * yy + 2 )
 n5 = lambda xx, yy: sigmoid( wp[0] * xx + wp[1] * yy - 2 )
-n6 = addFuncWeighted( n4, n5, 1, -1 )
+n6 = composeFunc( sigmoid, addFuncWeighted( n4, n5, 5, -5, -5 ) )
 
-# Increase the value 10 in the following to 20 or 50 to see the peaks get steeper
+# Increasing the magnitude of the weights and biases will make the peaks get steeper
 # Using just a few neurons, we were able to place a Dirac delta at our location of
 # choice. This is the key to the universality of neural networks. They can use these
 # to memorize data. This also causes NN to be prone to overfitting.
-n7 = composeFunc( sigmoid, addFuncWeighted( n3, n6, 10, 10, -10 ) )
+n7 = composeFunc( sigmoid, addFuncWeighted( n3, n6, 10, 10, -5 ) )
+# n7 = composeFunc( sigmoid, addFuncWeighted( n3, n6, 50, 50, -20 ) )
 
 fig = plt.figure( figsize = (7, 7) )
 ax = fig.gca( projection = '3d' )

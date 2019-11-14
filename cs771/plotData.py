@@ -79,7 +79,7 @@ def plot2DPoint( X, fig, color = 'r', marker = '+', size = 100 ):
     plt.figure( fig.number )
     plt.scatter( X[0], X[1], s = size, c = color, marker = marker )
 	
-def plotLine( w, b, fig, color = 'k', linestyle = "-", xlimL = -10, xlimR = 10, nBins = 500, label = "" ):
+def plotLine( w, b, fig, color = 'k', linestyle = "-", xlimL = -10, xlimR = 10, ylimD = -10, ylimU = 10, nBins = 500, label = "" ):
     plt.figure( fig.number )
     if np.abs( w[1] ) < 1e-6:
         y = np.linspace( xlimL, xlimR, nBins )
@@ -87,7 +87,9 @@ def plotLine( w, b, fig, color = 'k', linestyle = "-", xlimL = -10, xlimR = 10, 
     else:
         x = np.linspace( xlimL, xlimR, nBins )
         y = (-w[0] * x - b)/w[1]
-    plt.plot( x, y, color = color, linestyle = linestyle, label = label )
+	
+    idx = (y > ylimD) & (y < ylimU)
+    plt.plot( x[idx], y[idx], color = color, linestyle = linestyle, label = label )
     if label:
         plt.legend()
 		

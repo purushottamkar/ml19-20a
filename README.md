@@ -1,3 +1,5 @@
+## _This repository is out-of-date. Please consider referring to the latest repository for updated content. The course content for the next offering of this course is available at this [\[link\]](https://github.com/purushottamkar/ml19-20w/)._
+
 # CS 771A: Introduction to Machine Learning
 
 This is the course code and notes repository for the 2019-20 autumn offering of the course CS 771A (Introduction to Machine Learning).
